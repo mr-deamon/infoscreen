@@ -75,7 +75,6 @@ void setup() {
 
   if ((timestamp.Hour() == 5 && timestamp.Minute() == 33) || !flag) {
     Serial.println("Start of the day");
-    display.eraseDisplay();
     display.fillScreen(GxEPD_WHITE);
     display.update();
     //start of the day
@@ -99,7 +98,7 @@ void setup() {
     drawData(posbus2, String(nextBus[1]), f9pt, false);
     Serial.println("Update Time");
     updateTime(false);
-    display.update();
+    display.updateWindow(0,0,200,200);
     delay(100);
     ESP.deepSleep(0);
   } else if (timestamp.Hour() == 22 && timestamp.Minute() == 22) {

@@ -36,9 +36,9 @@ void updateTime(bool update=true)
   display.print(now.Minute(), DEC);
   display.setFont(f12pt);
   display.setCursor(45, 125);
-  display.print(now.Day(), DEC);
+  display.print(one2two(now.Day()));
   display.print(".");
-  display.print(now.Month(), DEC);
+  display.print(one2two(now.Month()));
   display.print(".");
   display.print(now.Year(), DEC);
   if(update==true) display.updateWindow(poswatch[0],poswatch[1],poswatch[2],poswatch[3], true);

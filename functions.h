@@ -1,3 +1,6 @@
+String one2two(int i){
+  if(i<10) return String("0"+String(i));
+ }
 void wifiConnect() {
   WiFi.mode(WIFI_STA);
   WiFi.disconnect();
