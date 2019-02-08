@@ -52,8 +52,8 @@ void retrieveBus() {
     //DynamicJsonBuffer jsonBuffer;
     JsonObject& root = jsonBuffer.parseObject(body);
     if (root.success()) {
-      String bus1 = root["stationboard"][0]["passList"][0]["departure"];
-      String bus2 = root["stationboard"][1]["passList"][0]["departure"];
+      String bus1 = root["connections"][0]["from"]["departure"];
+      String bus2 = root["connections"][1]["from"]["departure"];
       nextBus[0] = bus1.substring(11, 16);
       nextBus[1] = bus2.substring(11, 16);
     }
