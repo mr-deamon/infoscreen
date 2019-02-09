@@ -2,12 +2,6 @@
 //#define WIFI_PASS ""
 //create wifi.h and copy above lines
 #include "wifi.h"
-#define WIFI_IP IPAddress(192,168,0,7)
-#define WIFI_SUBNET IPAddress(255,255,255,0)
-#define WIFI_GATEWAY IPAddress(192,168,0,1)
-#define WIFI_HOSTNAME "Infoscreen"
-#define WIFI_CHANNEL 2
-#define WIFI_MAC "abc"
 
 #define BUSAPI "http://transport.opendata.ch/v1/connections?from=8590069&to=8576646&fields[]=connections/from/departure&limit=2"
 #define WEATHERAPI "http://api.apixu.com/v1/forecast.json?key=79522758eea5461384a170614180411&q=Bern,ch&days=2"

@@ -5,8 +5,8 @@ void wifiConnect() {
   WiFi.mode(WIFI_STA);
   WiFi.disconnect();
   delay(100);
-  WiFi.config(WIFI_IP, IPAddress(8, 8, 8, 8), WIFI_GATEWAY, WIFI_SUBNET);
-  WiFi.begin(WIFI_SSID, WIFI_PASS);
+  WiFi.config(WIFI_IP, WIFI_GATEWAY, WIFI_GATEWAY, WIFI_SUBNET);
+  WiFi.begin(WIFI_SSID, WIFI_PASS, WIFI_CHANNEL, wifi_mac, true);
   while (WiFi.status() != WL_CONNECTED) {
     Serial.print(".");
     delay(500);
