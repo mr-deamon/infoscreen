@@ -93,24 +93,24 @@ void setup() {
     display.update();
     //start of the day
     drawSymbols();
-    wifiConnect();
+    //aa//wifiConnect();
     //Serial.println("Update NTP");
     Serial.println("Update Weather");
-    retrieveWeather();
+    //aa//retrieveWeather();
     if (rain > 0.3) {
-      drawData(posrain, String("yes"), f12pt, false);
+      //aa//drawData(posrain, String("yes"), f12pt, false);
     } else {
-      drawData(posrain, String(" no"), f12pt, false);
+      //aa//drawData(posrain, String(" no"), f12pt, false);
     }
-    drawData(postemp, String(temp), f12pt, false);
+    //aa//drawData(postemp, String(temp), f12pt, false);
     Serial.println("Update Abfall");
     checkAbfall(timestamp.Month(), timestamp.Day());
     drawData(pospaper, paper, f12pt, false);
     Serial.println("Update Bus");
-    retrieveBus();
-    WiFiOff();
-    drawData(posbus1, String(nextBus[0]), f9pt, false);
-    drawData(posbus2, String(nextBus[1]), f9pt, false);
+    //aa//retrieveBus();
+    //aa//WiFiOff();
+    //aa//drawData(posbus1, String(nextBus[0]), f9pt, false);
+    //aa//drawData(posbus2, String(nextBus[1]), f9pt, false);
     Serial.println("Update Time");
     updateTime(false);
     display.updateWindow(0, 0, 200, 200);
@@ -180,11 +180,11 @@ void setup() {
       updateTime();
       if (timestamp.Minute() % 5 == 0) {
         Serial.println("Update Bus");
-        wifiConnect();
-        retrieveBus();
-        WiFiOff();
-        drawData(posbus1, String(nextBus[0]), f9pt);
-        drawData(posbus2, String(nextBus[1]), f9pt);
+        //aa//wifiConnect();
+        //aa//retrieveBus();
+        //aa//WiFiOff();
+        //aa//drawData(posbus1, String(nextBus[0]), f9pt);
+        //aa//drawData(posbus2, String(nextBus[1]), f9pt);
       }
       delay(100);
       ESP.deepSleepInstant(0, WAKE_RF_DEFAULT);
