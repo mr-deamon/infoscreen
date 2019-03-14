@@ -1,9 +1,22 @@
-String one2two(int i){
-  if(i<10) return String("0"+String(i));
- }
+String one2two(int i) {
+  if (i < 10) {
+    return String("0" + String(i));
+  } else {
+    return String(i);
+  }
+}
+
+void WiFiOff() {
+
+  WiFi.mode(WIFI_OFF);
+  delay(100);
+  WiFi.forceSleepBegin();
+  delay(100);
+
+}
 void wifiConnect() {
+  delay( 100 );
   WiFi.mode(WIFI_STA);
-  WiFi.disconnect();
   delay(100);
   WiFi.config(WIFI_IP, WIFI_GATEWAY, WIFI_GATEWAY, WIFI_SUBNET);
   WiFi.begin(WIFI_SSID, WIFI_PASS, WIFI_CHANNEL, wifi_mac, true);
@@ -111,7 +124,6 @@ double retrieveWeather() {
 void printDateTime(const RtcDateTime& dt)
 {
   char datestring[20];
-  Serial.println(datestring);
   snprintf_P(datestring,
              countof(datestring),
              PSTR("%02u/%02u/%04u %02u:%02u:%02u"),
@@ -144,7 +156,7 @@ void initClock() {
   Rtc.Begin();
 
   RtcDateTime compiled = RtcDateTime(__DATE__, __TIME__);
-  printDateTime(compiled);
+
   Serial.println();
 
   if (!Rtc.IsDateTimeValid())
@@ -181,7 +193,7 @@ void initClock() {
   {
     Serial.println("RTC is the same as compile time! (not expected but all is fine)");
   }
-
+  printDateTime(now);
   // never assume the Rtc was last configured by you, so
   // just clear them to your needed state
   Rtc.Enable32kHzPin(false);

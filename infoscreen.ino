@@ -25,6 +25,8 @@ RtcDS3231<TwoWire> Rtc(Wire);
 #include "WiFiClientSecureAxTLS.h"
 using namespace axTLS;
 WiFiClientSecure client;
+#include <sys/time.h>
+#include <time.h>
 
 
 //Libs for anything else
@@ -44,11 +46,13 @@ String paper;
 
 void setup() {
   // put your setup code here, to run once:
-  Rtc.Begin();
   Serial.begin(115200);
   display.powerDown();
   display.init();
+  delay(100);
+  Rtc.Begin();
   //display.setRotation(0);
+  WiFiOff();
 
   // See if alarm was triggered
   DS3231AlarmFlag flag = Rtc.LatchAlarmsTriggeredFlags();
@@ -74,6 +78,16 @@ void setup() {
 
 
   if ((timestamp.Hour() == 5 && timestamp.Minute() == 33) || !flag) {
+    /*if (timestamp.Day() % 11 == 0) {
+      configTime(0, 0, "0.ch.pool.ntp.org");
+      setenv("TZ", "CET-1CEST,M3.5.0,M10.5.0/3", 3);
+      while (time(nullptr) <= 100000) {
+        Serial.print(".");
+        delay(100);
+      }
+      time_t tnow = time(nullptr);
+      Serial.print(String(ctime(&tnow)));
+    }*/
     Serial.println("Start of the day");
     display.fillScreen(GxEPD_WHITE);
     display.update();
@@ -94,13 +108,14 @@ void setup() {
     drawData(pospaper, paper, f12pt, false);
     Serial.println("Update Bus");
     retrieveBus();
+    WiFiOff();
     drawData(posbus1, String(nextBus[0]), f9pt, false);
     drawData(posbus2, String(nextBus[1]), f9pt, false);
     Serial.println("Update Time");
     updateTime(false);
-    display.updateWindow(0,0,200,200);
+    display.updateWindow(0, 0, 200, 200);
     delay(100);
-    ESP.deepSleep(0);
+    ESP.deepSleepInstant(0, WAKE_RF_DEFAULT);
   } else if (timestamp.Hour() == 22 && timestamp.Minute() == 22) {
     //normal nightmode
 
@@ -117,7 +132,7 @@ void setup() {
     display.drawBitmap(0, 40, gImage_cat, 200, 120, GxEPD_BLACK);
     display.update();
     delay(100);
-    ESP.deepSleep(0);
+    ESP.deepSleepInstant(0, WAKE_RF_DEFAULT);
   }
 
   if (timestamp.Hour() > 21 || timestamp.Hour() < 5) {
@@ -137,7 +152,7 @@ void setup() {
     display.drawBitmap(0, 40, gImage_cat, 200, 120, GxEPD_BLACK);
     display.update();
     delay(100);
-    ESP.deepSleep(0);
+    ESP.deepSleepInstant(0, WAKE_RF_DEFAULT);
   }
   else {
     //daymode, do everything else before!
@@ -158,7 +173,7 @@ void setup() {
     Rtc.SetAlarmTwo(alarm2);
     if (!flag) {
       delay(100);
-      ESP.deepSleep(0);
+      ESP.deepSleepInstant(0, WAKE_RF_DEFAULT);
       Serial.println("no flag,sleeping");
     } else {
       Serial.println("Update Time on Watch");
@@ -167,16 +182,17 @@ void setup() {
         Serial.println("Update Bus");
         wifiConnect();
         retrieveBus();
+        WiFiOff();
         drawData(posbus1, String(nextBus[0]), f9pt);
         drawData(posbus2, String(nextBus[1]), f9pt);
       }
       delay(100);
-      ESP.deepSleep(0);
+      ESP.deepSleepInstant(0, WAKE_RF_DEFAULT);
     }
 
   }
 
-
+display.powerDown();
 
 }
 void loop() {}

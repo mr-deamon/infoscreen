@@ -29,11 +29,9 @@ void updateTime(bool update=true)
   display.setFont(f18pt);
   display.setTextColor(GxEPD_BLACK);
   display.setCursor(60, 97);
-  if(now.Hour()<10){display.print("0");}
-  display.print(now.Hour(), DEC);
+  display.print(one2two(now.Hour()));
   display.print(":");
-  if(now.Minute()<10){display.print("0");}
-  display.print(now.Minute(), DEC);
+  display.print(one2two(now.Minute()));
   display.setFont(f12pt);
   display.setCursor(45, 125);
   display.print(one2two(now.Day()));
