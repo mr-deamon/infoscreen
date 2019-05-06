@@ -7,17 +7,20 @@ String one2two(int i) {
 }
 
 void WiFiOff() {
-
+  WiFi.disconnect( true );
+  delay( 1 );
   WiFi.mode(WIFI_OFF);
-  delay(100);
+  delay(1);
   WiFi.forceSleepBegin();
-  delay(100);
+  delay(1);
 
 }
 void wifiConnect() {
-  delay( 100 );
+  WiFi.forceSleepWake();
+  delay( 1 );
+  WiFi.persistent( false );
   WiFi.mode(WIFI_STA);
-  delay(100);
+  delay(10);
   WiFi.config(WIFI_IP, WIFI_GATEWAY, WIFI_GATEWAY, WIFI_SUBNET);
   WiFi.begin(WIFI_SSID, WIFI_PASS, WIFI_CHANNEL, wifi_mac, true);
   while (WiFi.status() != WL_CONNECTED) {
