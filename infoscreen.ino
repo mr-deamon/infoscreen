@@ -52,7 +52,6 @@ void setup() {
   delay(100);
   Rtc.Begin();
   //display.setRotation(0);
-  WiFiOff();
 
   // See if alarm was triggered
   DS3231AlarmFlag flag = Rtc.LatchAlarmsTriggeredFlags();
@@ -114,8 +113,8 @@ void setup() {
     Serial.println("Update Time");
     updateTime(false);
     display.updateWindow(0, 0, 200, 200);
-    delay(100);
-    ESP.deepSleepInstant(0, WAKE_RF_DEFAULT);
+    
+    ESP.deepSleepInstant(0, WAKE_RF_DISABLED);
   } else if (timestamp.Hour() == 22 && timestamp.Minute() == 22) {
     //normal nightmode
 
@@ -131,8 +130,8 @@ void setup() {
     display.fillScreen(GxEPD_WHITE);
     display.drawBitmap(0, 40, gImage_cat, 200, 120, GxEPD_BLACK);
     display.update();
-    delay(100);
-    ESP.deepSleepInstant(0, WAKE_RF_DEFAULT);
+
+    ESP.deepSleepInstant(0, WAKE_RF_DISABLED);
   }
 
   if (timestamp.Hour() > 21 || timestamp.Hour() < 5) {
@@ -151,8 +150,8 @@ void setup() {
     display.fillScreen(GxEPD_WHITE);
     display.drawBitmap(0, 40, gImage_cat, 200, 120, GxEPD_BLACK);
     display.update();
-    delay(100);
-    ESP.deepSleepInstant(0, WAKE_RF_DEFAULT);
+
+    ESP.deepSleepInstant(0, WAKE_RF_DISABLED);
   }
   else {
     //daymode, do everything else before!
@@ -172,8 +171,7 @@ void setup() {
     Rtc.SetAlarmOne(alarm1);
     Rtc.SetAlarmTwo(alarm2);
     if (!flag) {
-      delay(100);
-      ESP.deepSleepInstant(0, WAKE_RF_DEFAULT);
+      ESP.deepSleepInstant(0, WAKE_RF_DISABLED);
       Serial.println("no flag,sleeping");
     } else {
       Serial.println("Update Time on Watch");
@@ -186,8 +184,8 @@ void setup() {
         drawData(posbus1, String(nextBus[0]), f9pt);
         drawData(posbus2, String(nextBus[1]), f9pt);
       }
-      delay(100);
-      ESP.deepSleepInstant(0, WAKE_RF_DEFAULT);
+
+      ESP.deepSleepInstant(0, WAKE_RF_DISABLED);
     }
 
   }
